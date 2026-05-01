@@ -263,7 +263,7 @@ const wordBookData = [
             }
         ]
     },
-    ,{
+    {
         id: "chapter12",
         title: "Chapter 12: Modern Magic (2024 Tools)",
         topics: [
@@ -289,7 +289,7 @@ const wordBookData = [
             }
         ]
     },
-    ,{
+    {
         id: "chapter13",
         title: "Chapter 13: School Reports & Drawing",
         topics: [
@@ -328,6 +328,32 @@ const wordBookData = [
                 heading: "Recovering Unsaved Files",
                 text: "This is the ultimate lifesaver! If your computer dies before you saved your work, do not panic. Open Word, go to 'File' > 'Info' > 'Manage Document', and click 'Recover Unsaved Documents'. Word secretly saves backup copies of your work just in case of emergencies.",
                 imgSrc: "images/56-recover-unsaved.jpg"
+            }
+        ]
+    }
+    ,{
+        id: "chapter15",
+        title: "Chapter 15: Essential Finishing Touches",
+        topics: [
+            {
+                heading: "Adding Page Numbers",
+                text: "If you are writing a long story, you need page numbers so people don't get lost reading it. Go to the 'Insert' tab, click 'Page Number', and choose if you want the numbers to show up at the top or the bottom of the paper.",
+                imgSrc: "images/57-page-numbers.jpg"
+            },
+            {
+                heading: "Text Highlight Color",
+                text: "Just like using a neon marker pen on a real book, you can highlight important sentences in Word. Highlight your text, look for the little 'ab' button with a pen next to it in the Home tab, and choose bright yellow or green so you don't forget it.",
+                imgSrc: "images/58-text-highlight.jpg"
+            },
+            {
+                heading: "Undo and Redo (The Time Machine)",
+                text: "If you accidentally delete a whole paragraph, do not panic! Look at the very top left corner of your screen for a backward arrow. This is the 'Undo' button (Ctrl+Z), and it acts like a time machine to bring back your mistakes. The forward arrow is 'Redo' (Ctrl+Y).",
+                imgSrc: "images/59-undo-redo.jpg"
+            },
+            {
+                heading: "How to Print Correctly",
+                text: "When you are ready to put your work on real paper, go to 'File' and click 'Print' (or press Ctrl + P). The screen will show you exactly how the paper will look. You can select your printer, type how many copies you want, and click the big Print button.",
+                imgSrc: "images/60-print-preview.jpg"
             }
         ]
     }
