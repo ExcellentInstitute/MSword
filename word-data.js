@@ -109,5 +109,93 @@ const wordNotesData = [
                 imgSrc: "images/16-table-of-contents.jpg"
             }
         ]
+    },
+    {
+        id: "batch5",
+        title: "Module 5: Page Design & Backgrounds",
+        level: "Intermediate",
+        sections: [
+            {
+                heading: "Adding a Watermark",
+                text: "A watermark is a faded image or text behind your main document. It is used to show ownership (like putting 'Excellent Institute' lightly in the background of your study notes) or status (like 'CONFIDENTIAL'). Go to the 'Design' tab and click 'Watermark' to choose a built-in one or upload your own logo.",
+                imgSrc: "images/17-watermark.jpg"
+            },
+            {
+                heading: "Page Borders and Colors",
+                text: "To make a certificate or a front page look beautiful, you can add a border. In the 'Design' tab, click 'Page Borders'. You can choose simple lines, 3D boxes, or even artistic patterns. You can also change the 'Page Color' if you want to print on a colored background (though usually, we leave it white to save ink!).",
+                imgSrc: "images/18-page-borders.jpg"
+            },
+            {
+                heading: "Columns (Newspaper Style)",
+                text: "If you are writing a newsletter or a brochure, you might want your text divided into columns, just like a newspaper or a magazine. Highlight your text, go to the 'Layout' tab, click 'Columns', and choose 'Two' or 'Three'.",
+                imgSrc: "images/19-columns.jpg"
+            }
+        ]
+    },
+    {
+        id: "batch6",
+        title: "Module 6: Collaboration & Reviewing",
+        level: "Advanced",
+        sections: [
+            {
+                heading: "Using Track Changes",
+                text: "When a teacher is correcting a student's essay, they use 'Track Changes'. Go to the 'Review' tab and turn it on. Now, any word you delete gets a red line drawn through it, and any new word you type is underlined. It shows exactly what was fixed without permanently destroying the original work.",
+                imgSrc: "images/20-track-changes.jpg"
+            },
+            {
+                heading: "Adding Comments",
+                text: "Sometimes you do not want to change the text, but you want to leave a note. Highlight a word, go to the 'Review' tab, and click 'New Comment'. A small chat bubble will appear in the margin where you can type feedback like 'Please explain this paragraph better.'",
+                imgSrc: "images/21-comments.jpg"
+            },
+            {
+                heading: "Accepting or Rejecting Edits",
+                text: "Once a document has tracked changes, the original author must decide to keep them or not. In the 'Review' tab, you can click 'Accept' to make the change permanent, or 'Reject' to put it back to the way it was before.",
+                imgSrc: "images/22-accept-reject.jpg"
+            }
+        ]
+    },
+    {
+        id: "batch7",
+        title: "Module 7: Professional Templates & Documents",
+        level: "Advanced",
+        sections: [
+            {
+                heading: "Working with Templates",
+                text: "Why start from scratch? Word has thousands of free templates. When you open Word, instead of clicking 'Blank Document', search for 'Resume', 'Invoice', 'Admission Form', or 'Certificate'. Word will give you a pre-designed layout where you just fill in your own details.",
+                imgSrc: "images/23-templates.jpg"
+            },
+            {
+                heading: "Formatting Technical Text (Code)",
+                text: "If you are typing computer programming notes (like Python or SQL), you should use a different font to make it look like real code. Highlight the code, and change the font to 'Consolas' or 'Courier New'. These are 'monospace' fonts where every letter takes up the exact same amount of space.",
+                imgSrc: "images/24-code-formatting.jpg"
+            },
+            {
+                heading: "Using the Format Painter",
+                text: "The 'Format Painter' is a magic paintbrush! If you have a heading that is Blue, Size 16, and Bold, and you want another heading to look exactly the same, you don't have to do it all over again. Click the good heading, click 'Format Painter' (the yellow brush on the Home tab), and then paint over the new text. It instantly copies the style!",
+                imgSrc: "images/25-format-painter.jpg"
+            }
+        ]
+    },
+    {
+        id: "batch8",
+        title: "Module 8: Security & Exporting",
+        level: "Advanced",
+        sections: [
+            {
+                heading: "Protecting with a Password",
+                text: "If you are typing a highly confidential document, like a commercial lease agreement or exam question papers, you can lock it. Go to 'File' > 'Info' > 'Protect Document' > 'Encrypt with Password'. Warning: If you forget the password, even Microsoft cannot recover the file for you!",
+                imgSrc: "images/26-password-protect.jpg"
+            },
+            {
+                heading: "Exporting to PDF",
+                text: "Word files (.docx) can look different on different computers. To make sure your document looks exactly the same everywhere (and so nobody can easily edit it), save it as a PDF. Go to 'File' > 'Export' > 'Create PDF/XPS Document'. PDFs are the standard format for sharing official files on WhatsApp or Email.",
+                imgSrc: "images/27-export-pdf.jpg"
+            },
+            {
+                heading: "Keyboard Shortcuts Mastery",
+                text: "True professionals don't use the mouse for everything. Memorize these: Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+Z (Undo a mistake), Ctrl+A (Select everything), and Ctrl+B (Bold). Using shortcuts makes your typing speed double!",
+                imgSrc: "images/28-keyboard-shortcuts.jpg"
+            }
+        ]
     }
 ];
