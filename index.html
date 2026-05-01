@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excellent Institute - MS Word Masterclass</title>
+    <style>
+        :root {
+            --primary-color: #2b579a; 
+            --bg-color: #f3f2f1;
+            --text-color: #333;
+        }
+        
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Top Header bar --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Circular Logo Styling */
+        .brand img.logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Makes the squared image circular */
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .brand h2 { margin: 0; color: var(--primary-color); font-size: 1.2rem; }
+
+        .action-btns button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .action-btns button:hover { background-color: #1a365d; }
+
+        /* --- Main Layout --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- Sidebar Navigation --- */
+        .sidebar {
+            width: 280px;
+            background-color: #ffffff;
+            border-right: 1px solid #ddd;
+            padding: 20px 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .nav-btn:hover { background-color: #f0f4f8; }
+        .nav-btn.active {
+            background-color: #e6f0fa;
+            border-left-color: var(--primary-color);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* --- Content Area (Drag to Scroll) --- */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            cursor: grab; /* Indicates it can be grabbed */
+        }
+        .content-area:active { cursor: grabbing; } /* While dragging */
+
+        .note-section { pointer-events: none; /* Prevents text selection while dragging */ }
+        .note-section.allow-select { pointer-events: auto; }
+
+        .note-section h1 { color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .note-section h3 { color: #444; margin-top: 30px; }
+        .note-section p, .note-section li { line-height: 1.6; font-size: 1.05rem; }
+
+        /* Image Styling */
+        .note-section img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: zoom-in; /* Indicates image is clickable */
+            pointer-events: auto; /* Ensure images are clickable despite parent setting */
+        }
+        .img-caption { font-size: 0.9rem; color: #666; font-style: italic; margin-bottom: 20px; }
+
+        /* --- Lightbox Modal --- */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        #lightbox img { max-width: 90%; max-height: 90%; border: 2px solid white; border-radius: 8px; }
+        #lightbox:target { display: flex; } /* Simplest way to show modal */
+
+        /* --- Watermark Setup (Hidden by default) --- */
+        .watermark-bg { display: none; }
+
+        /* --- Responsive Design (Mobile) --- */
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; }
+            .sidebar { width: 100%; height: 200px; border-right: none; border-bottom: 2px solid #ddd; }
+            .content-area { margin: 10px; padding: 20px; }
+        }
+
+        /* --- Print & PDF Export Styling --- */
+        @media print {
+            body, .main-container { height: auto; overflow: visible; display: block; background-color: white; }
+            .sidebar, .header, .action-btns { display: none !important; }
+            .content-area { margin: 0; padding: 0; box-shadow: none; overflow: visible; cursor: auto; }
+            .note-section { pointer-events: auto; }
+            
+            /* Add Watermark for Print */
+            .watermark-bg {
+                display: block;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0.1; /* Transparent watermark */
+                z-index: -1;
+                width: 60%;
+                pointer-events: none;
+                border-radius: 50%; /* Keeps the watermark circular too */
+            }
+
+            /* Page breaks for neat PDF generation */
+            h1 { page-break-before: always; }
+            h1:first-of-type { page-break-before: auto; }
+            img { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header containing Logo and Print Button -->
+    <div class="header">
+        <div class="brand">
+            <!-- REPLACE 'YOUR_GITHUB_LOGO_URL.png' WITH YOUR ACTUAL REPOSITORY LINK -->
+            <img src="YOUR_GITHUB_LOGO_URL.png" alt="Excellent Institute Logo" class="logo" id="mainLogo">
+            <h2>Excellent Institute</h2>
+        </div>
+        <div class="action-btns">
+            <button onclick="window.print()">🖨️ Print / Save as PDF</button>
+        </div>
+    </div>
+
+    <!-- Hidden Watermark for Printing -->
+    <img src="YOUR_GITHUB_LOGO_URL.png" alt="Watermark" class="watermark-bg" id="watermarkLogo">
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div id="nav-container">
+                <!-- Navigation generated here -->
+            </div>
+        </div>
+
+        <div class="content-area" id="content-display">
+            <!-- Notes pushed here -->
+            <div class="note-section allow-select">
+                <h1>Welcome to the MS Word Course</h1>
+                <p>Select a topic from the sidebar to begin.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Element -->
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Enlarged view">
+    </div>
+
+    <!-- Link to the data file -->
+    <script src="word-data.js"></script>
+    
+    <script>
+        const navContainer = document.getElementById('nav-container');
+        const contentDisplay = document.getElementById('content-display');
+
+        // --- Data Loading Logic ---
+        function buildNavigation() {
+            wordNotesData.forEach((batch, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-btn';
+                btn.innerText = batch.title;
+                btn.onclick = () => loadContent(index, btn);
+                navContainer.appendChild(btn);
+            });
+        }
+
+        function loadContent(index, clickedBtn) {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            if(clickedBtn) clickedBtn.classList.add('active');
+
+            const data = wordNotesData[index];
+
+            // Added 'allow-select' class wrapper so text can be copied once loaded
+            let htmlContent = `<div class="note-section allow-select">`;
+            htmlContent += `<h1>${data.title}</h1>`;
+            htmlContent += `<p><em>Level: ${data.level}</em></p>`;
+            
+            data.sections.forEach(sec => {
+                htmlContent += `<h3>${sec.heading}</h3>`;
+                htmlContent += `<p>${sec.text}</p>`;
+                
+                if(sec.imgSrc) {
+                    // Added onclick event to trigger the lightbox
+                    htmlContent += `<img src="${sec.imgSrc}" alt="${sec.heading}" onclick="openLightbox(this.src)">`;
+                    htmlContent += `<div class="img-caption">Figure: ${sec.heading}</div>`;
+                }
+            });
+            htmlContent += `</div>`;
+            
+            contentDisplay.innerHTML = htmlContent;
+            contentDisplay.scrollTop = 0;
+        }
+
+        // --- Lightbox Logic ---
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        // --- Drag to Scroll Logic ---
+        let isDown = false;
+        let startY;
+        let scrollTop;
+
+        contentDisplay.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startY = e.pageY - contentDisplay.offsetTop;
+            scrollTop = contentDisplay.scrollTop;
+            // Prevent text selection while actively dragging
+            contentDisplay.querySelector('.note-section').classList.remove('allow-select');
+        });
+
+        contentDisplay.addEventListener('mouseleave', () => {
+            isDown = false;
+            if(contentDisplay.querySelector('.note-section')) {
+                contentDisplay.querySelector('.note-section').classList.add('allow-select');
+            }
+        });
+
+        contentDisplay.addEventListener('mouseup', () => {
+            isDown = false;
+            if(contentDisplay.querySelector('.note-section')) {
+                contentDisplay.querySelector('.note-section').classList.add('allow-select');
+            }
+        });
+
+        contentDisplay.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const y = e.pageY - contentDisplay.offsetTop;
+            const walk = (y - startY) * 2; // Scroll speed multiplier
+            contentDisplay.scrollTop = scrollTop - walk;
+        });
+
+        window.onload = buildNavigation;
+    </script>
+</body>
+</html>
