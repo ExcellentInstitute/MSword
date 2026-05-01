@@ -1,201 +1,190 @@
 // word-data.js
-// Complete MS Word Masterclass Syllabus
+// Excellent Institute - MS Word Complete Book Syllabus
 
-const wordNotesData = [
+const wordBookData = [
     {
-        id: "batch1",
-        title: "Module 1: Introduction & The Basics",
-        level: "Beginner",
-        sections: [
+        id: "chapter1",
+        title: "Chapter 1: The Absolute Basics",
+        topics: [
             {
                 heading: "What is MS Word?",
-                text: "Microsoft Word is a word processing software. Think of it as a digital notebook where you can type, edit, and format text to create professional documents like letters, essays, resumes, and project reports. When you open Word, you will see a 'Start Screen' where you can choose a 'Blank Document' to start fresh.",
+                text: "Microsoft Word is a digital notebook used for typing. You can use it to write letters, school essays, resumes, and project reports. When you open the program, click on 'Blank Document' to get a clean, fresh page.",
                 imgSrc: "images/1-start-screen.jpg"
             },
             {
-                heading: "Understanding the Ribbon",
-                text: "The 'Ribbon' is the thick band of tools at the very top of your screen. It is organized into different 'Tabs' (like Home, Insert, Design, Layout). Clicking on a tab opens a new set of tools. The 'Home' tab is the most important one—it holds your basic text tools like font size, color, and bold/italic options.",
+                heading: "The Ribbon (Your Tool Box)",
+                text: "Look at the top of your screen. That thick bar full of buttons is called the 'Ribbon'. It is divided into different 'Tabs' like Home, Insert, and Layout. The 'Home' tab is the most important—it holds your everyday tools for typing.",
                 imgSrc: "images/2-the-ribbon.jpg"
             },
             {
-                heading: "Saving Your Hard Work",
-                text: "Computers can lose power, or programs can crash. To keep your work safe, you must 'Save' it. Go to 'File' > 'Save As', choose a folder on your computer, and give your file a clear name (like 'My First Essay'). Shortcut: Press Ctrl + S to save quickly while you work!",
+                heading: "How to Save Your Work",
+                text: "Computers can crash or lose power. To make sure you don't lose your hard work, you must 'Save' it. Click on 'File' at the top left, then 'Save As'. Choose a folder on your computer and give your file a simple name. Pro Tip: Press 'Ctrl + S' on your keyboard to save quickly!",
                 imgSrc: "images/3-save-as.jpg"
+            }
+            // 🛑 HOW TO ADD A MISSING TOPIC INSIDE THIS CHAPTER 🛑
+            // If you want to add a new topic to Chapter 1, add a comma after the 
+            // curly brace above, and paste your new block here, like this:
+            // ,{
+            //     heading: "Opening an Old Document",
+            //     text: "To open a file you saved yesterday, go to File > Open.",
+            //     imgSrc: "images/open-file.jpg"
+            // }
+        ]
+    },
+    {
+        id: "chapter2",
+        title: "Chapter 2: Text Formatting (Making it Look Good)",
+        topics: [
+            {
+                heading: "Changing the Font",
+                text: "You can change how your handwriting looks on the screen. Highlight your text with your mouse, then look at the Home tab. You can choose different handwriting styles, make the text bigger, or change its color.",
+                imgSrc: "images/4-font-formatting.jpg"
             },
             {
-                heading: "Font Formatting (Making Text Look Good)",
-                text: "Under the Home tab, you can change how your text looks. You can change the 'Font Style' (the handwriting style), make it bigger or smaller, and apply Bold (B), Italic (I), or Underline (U) to make important words stand out. You can also change the text color to make headings pop.",
-                imgSrc: "images/4-font-formatting.jpg"
+                heading: "Bold, Italic, and Underline",
+                text: "To make important words stand out, highlight them and click 'B' to make them Bold (thicker), 'I' to make them Italic (slanted), or 'U' to Underline them.",
+                imgSrc: "images/bold-italic.jpg"
+            },
+            {
+                heading: "The Magic Format Painter",
+                text: "If you make a title big and blue, and you want your next title to look exactly the same, click the first title, click the 'Format Painter' brush icon, and wipe it over the new text. It copies the design instantly!",
+                imgSrc: "images/15-format-painter.jpg"
             }
         ]
     },
     {
-        id: "batch2",
-        title: "Module 2: Paragraphs, Pages & Printing",
-        level: "Beginner to Intermediate",
-        sections: [
+        id: "chapter3",
+        title: "Chapter 3: Paragraphs & Lists",
+        topics: [
             {
-                heading: "Paragraph Alignment",
-                text: "Alignment is how your text lines up on the page. You have four choices in the Home tab: Left (standard for typing), Center (great for titles and headings), Right (often used for dates on letters), and Justify (stretches text so both the left and right edges are perfectly straight, like in a newspaper).",
+                heading: "Lining Up Your Text (Alignment)",
+                text: "In the Home tab, you can change how your words sit on the page. Left is for normal typing, Center is for main titles, Right is for dates on letters, and Justify makes both the left and right sides perfectly straight.",
                 imgSrc: "images/5-alignment.jpg"
             },
             {
-                heading: "Lists: Bullets and Numbers",
-                text: "If you need to write a list of items (like parts of a computer), use Bullets or Numbering. You can find these tools in the Home tab. Clicking the bullet icon creates a neat dot for each new line. Pressing 'Enter' automatically creates the next bullet!",
+                heading: "Making Neat Lists (Bullets)",
+                text: "If you need to write a list of items, do not type numbers manually. Use the 'Bullets' or 'Numbering' buttons in the Home tab. Every time you press the 'Enter' key, it automatically creates the next neat dot or number!",
                 imgSrc: "images/6-bullet-lists.jpg"
-            },
+            }
+        ]
+    },
+    {
+        id: "chapter4",
+        title: "Chapter 4: Arranging & Printing the Page",
+        topics: [
             {
-                heading: "Page Layout & Margins",
-                text: "Before you print, you need to set up your page. Go to the 'Layout' tab. 'Margins' are the blank white spaces around the edges of your paper. You can make them 'Narrow' to fit more text or 'Normal' for standard printing. You can also change 'Orientation' to Portrait (tall) or Landscape (wide).",
+                heading: "Setting Up Page Margins",
+                text: "Go to the 'Layout' tab. 'Margins' are the blank white borders around the edges of your paper. Make the margins 'Narrow' to fit more words on the page, or keep it on 'Normal' for standard printing.",
                 imgSrc: "images/7-page-layout.jpg"
             },
             {
-                heading: "How to Print Correctly",
-                text: "Go to 'File' > 'Print' (or press Ctrl + P). You will see a preview of how your document will look on paper. Here, you can select which printer to use, how many copies you want, and whether you want to print all pages or just the current page.",
+                heading: "Newspaper Columns",
+                text: "If you want your text to read side-by-side, exactly like a magazine or a newspaper, go to the 'Layout' tab, click 'Columns', and choose 'Two'. Word will split your text perfectly down the middle.",
+                imgSrc: "images/19-columns.jpg"
+            },
+            {
+                heading: "Printing Your Document",
+                text: "When you are ready to put your work on real paper, go to 'File' and click 'Print' (or press Ctrl + P). The screen will show you exactly how the paper will look before you click the Print button.",
                 imgSrc: "images/8-print-preview.jpg"
             }
         ]
     },
     {
-        id: "batch3",
-        title: "Module 3: Inserting Visuals & Objects",
-        level: "Intermediate",
-        sections: [
+        id: "chapter5",
+        title: "Chapter 5: Adding Pictures & Tables",
+        topics: [
             {
                 heading: "Inserting Pictures and Shapes",
-                text: "A document with only text can be boring. Go to the 'Insert' tab to add visuals. Click 'Pictures' to add an image from your computer. Click 'Shapes' to draw arrows, stars, or boxes. Once you insert an image, a new 'Picture Format' tab appears to let you add borders and effects.",
+                text: "Go to the 'Insert' tab and click 'Pictures' to add a photo from your computer. You can also click 'Shapes' to draw perfect arrows or stars. Once added, drag the corners to resize them.",
                 imgSrc: "images/9-insert-pictures.jpg"
             },
             {
-                heading: "Creating Tables",
-                text: "Tables are perfect for organizing data, like a class timetable or a list of student marks. Go to Insert > Table. Move your mouse over the grid squares to choose how many columns (vertical) and rows (horizontal) you need, then click to drop the table onto your page.",
+                heading: "Drawing Tables",
+                text: "Tables are boxes that keep information organized, like a class routine. Go to the 'Insert' tab and click 'Table'. Choose how many boxes you need, and it drops a grid onto your page so you can type inside it.",
                 imgSrc: "images/10-insert-tables.jpg"
-            },
+            }
+        ]
+    },
+    {
+        id: "chapter6",
+        title: "Chapter 6: Page Design & Backgrounds",
+        topics: [
             {
-                heading: "Headers, Footers, and Page Numbers",
-                text: "A 'Header' is the space at the very top of every page, and a 'Footer' is at the very bottom. Go to Insert > Header to type something you want to repeat on every page (like a book title or your name). You can also use Insert > Page Number to automatically number your pages.",
+                heading: "Headers and Footers",
+                text: "A 'Header' is a special space at the top of the page, and a 'Footer' is at the bottom. If you type your school name in the Header (found in the Insert tab), Word automatically copies it to the top of every single page!",
                 imgSrc: "images/11-header-footer.jpg"
             },
             {
-                heading: "WordArt & Text Boxes",
-                text: "For cool, decorative titles, use 'WordArt' (found in the Insert tab). If you want to place text in a very specific spot on the page—like floating next to an image—use a 'Text Box'. You can drag a Text Box anywhere on the page, unlike normal typing.",
-                imgSrc: "images/12-wordart.jpg"
-            }
-        ]
-    },
-    {
-        id: "batch4",
-        title: "Module 4: Advanced Professional Tools",
-        level: "Advanced",
-        sections: [
-            {
-                heading: "Find and Replace",
-                text: "Imagine writing a 20-page report and realizing you spelled a name wrong everywhere! Don't fix it manually. In the Home tab, click 'Replace'. Tell Word to find the wrong word, and type what to replace it with. It will fix the whole document in one second.",
-                imgSrc: "images/13-find-replace.jpg"
-            },
-            {
-                heading: "Spelling & Grammar Check",
-                text: "Word helps you avoid mistakes. A red squiggly line under a word means a spelling mistake. A blue squiggly line means a grammar mistake. Right-click the underlined word to see Word's suggestions. You can also run a full check by going to the 'Review' tab and clicking 'Spelling & Grammar'.",
-                imgSrc: "images/14-spell-check.jpg"
-            },
-            {
-                heading: "Mail Merge (The Ultimate Tool)",
-                text: "Mail Merge is an advanced trick to send customized letters to many people. For example, if you want to send admission letters to 50 new students at Excellent Institute, you don't type 50 letters. You type one letter, link it to an Excel list of student names, and Word automatically creates 50 personalized letters! Find this under the 'Mailings' tab.",
-                imgSrc: "images/15-mail-merge.jpg"
-            },
-            {
-                heading: "Generating a Table of Contents",
-                text: "For long projects, a Table of Contents (Index) is required. First, highlight your main chapter titles and apply 'Heading 1' or 'Heading 2' styles from the Home tab. Then, go to the 'References' tab and click 'Table of Contents'. Word will instantly create an index with accurate page numbers!",
-                imgSrc: "images/16-table-of-contents.jpg"
-            }
-        ]
-    },
-    {
-        id: "batch5",
-        title: "Module 5: Page Design & Backgrounds",
-        level: "Intermediate",
-        sections: [
-            {
                 heading: "Adding a Watermark",
-                text: "A watermark is a faded image or text behind your main document. It is used to show ownership (like putting 'Excellent Institute' lightly in the background of your study notes) or status (like 'CONFIDENTIAL'). Go to the 'Design' tab and click 'Watermark' to choose a built-in one or upload your own logo.",
+                text: "A watermark is a faded word or picture hiding behind your text. You can put 'Excellent Institute' lightly in the background. Go to the 'Design' tab and click 'Watermark'.",
                 imgSrc: "images/17-watermark.jpg"
             },
             {
-                heading: "Page Borders and Colors",
-                text: "To make a certificate or a front page look beautiful, you can add a border. In the 'Design' tab, click 'Page Borders'. You can choose simple lines, 3D boxes, or even artistic patterns. You can also change the 'Page Color' if you want to print on a colored background (though usually, we leave it white to save ink!).",
+                heading: "Page Borders",
+                text: "To make a certificate or project look beautiful, add a border. In the 'Design' tab, click 'Page Borders'. You can choose simple black lines or artistic designs.",
                 imgSrc: "images/18-page-borders.jpg"
-            },
-            {
-                heading: "Columns (Newspaper Style)",
-                text: "If you are writing a newsletter or a brochure, you might want your text divided into columns, just like a newspaper or a magazine. Highlight your text, go to the 'Layout' tab, click 'Columns', and choose 'Two' or 'Three'.",
-                imgSrc: "images/19-columns.jpg"
             }
         ]
     },
     {
-        id: "batch6",
-        title: "Module 6: Collaboration & Reviewing",
-        level: "Advanced",
-        sections: [
+        id: "chapter7",
+        title: "Chapter 7: Office Tools & Automation",
+        topics: [
+            {
+                heading: "Checking for Spelling Mistakes",
+                text: "If you type a word wrong, Word puts a red line under it. Just 'right-click' on the underlined word with your mouse, and the computer will suggest the correct spelling.",
+                imgSrc: "images/14-spell-check.jpg"
+            },
+            {
+                heading: "Find and Replace",
+                text: "If you spelled a name wrong 50 times in a long story, don't fix it manually. In the Home tab, click 'Replace'. Tell the computer the wrong word, and the right word. It fixes all of them in one second.",
+                imgSrc: "images/13-find-replace.jpg"
+            },
+            {
+                heading: "Mail Merge (The Magic Letter Tool)",
+                text: "If you need to send letters to 50 students, you don't type 50 letters. Type one single letter, link it to a list of student names, and Word will automatically print 50 personalized letters! Find this in the 'Mailings' tab.",
+                imgSrc: "images/20-mail-merge.jpg"
+            }
+        ]
+    },
+    {
+        id: "chapter8",
+        title: "Chapter 8: Reviewing, Saving & Security",
+        topics: [
             {
                 heading: "Using Track Changes",
-                text: "When a teacher is correcting a student's essay, they use 'Track Changes'. Go to the 'Review' tab and turn it on. Now, any word you delete gets a red line drawn through it, and any new word you type is underlined. It shows exactly what was fixed without permanently destroying the original work.",
-                imgSrc: "images/20-track-changes.jpg"
+                text: "When a teacher corrects a student's essay, they use 'Track Changes' in the 'Review' tab. Any deleted word gets a red line through it, and new words are underlined. It shows exactly what was fixed.",
+                imgSrc: "images/22-track-changes.jpg"
             },
             {
-                heading: "Adding Comments",
-                text: "Sometimes you do not want to change the text, but you want to leave a note. Highlight a word, go to the 'Review' tab, and click 'New Comment'. A small chat bubble will appear in the margin where you can type feedback like 'Please explain this paragraph better.'",
-                imgSrc: "images/21-comments.jpg"
-            },
-            {
-                heading: "Accepting or Rejecting Edits",
-                text: "Once a document has tracked changes, the original author must decide to keep them or not. In the 'Review' tab, you can click 'Accept' to make the change permanent, or 'Reject' to put it back to the way it was before.",
-                imgSrc: "images/22-accept-reject.jpg"
-            }
-        ]
-    },
-    {
-        id: "batch7",
-        title: "Module 7: Professional Templates & Documents",
-        level: "Advanced",
-        sections: [
-            {
-                heading: "Working with Templates",
-                text: "Why start from scratch? Word has thousands of free templates. When you open Word, instead of clicking 'Blank Document', search for 'Resume', 'Invoice', 'Admission Form', or 'Certificate'. Word will give you a pre-designed layout where you just fill in your own details.",
-                imgSrc: "images/23-templates.jpg"
-            },
-            {
-                heading: "Formatting Technical Text (Code)",
-                text: "If you are typing computer programming notes (like Python or SQL), you should use a different font to make it look like real code. Highlight the code, and change the font to 'Consolas' or 'Courier New'. These are 'monospace' fonts where every letter takes up the exact same amount of space.",
-                imgSrc: "images/24-code-formatting.jpg"
-            },
-            {
-                heading: "Using the Format Painter",
-                text: "The 'Format Painter' is a magic paintbrush! If you have a heading that is Blue, Size 16, and Bold, and you want another heading to look exactly the same, you don't have to do it all over again. Click the good heading, click 'Format Painter' (the yellow brush on the Home tab), and then paint over the new text. It instantly copies the style!",
-                imgSrc: "images/25-format-painter.jpg"
-            }
-        ]
-    },
-    {
-        id: "batch8",
-        title: "Module 8: Security & Exporting",
-        level: "Advanced",
-        sections: [
-            {
-                heading: "Protecting with a Password",
-                text: "If you are typing a highly confidential document, like a commercial lease agreement or exam question papers, you can lock it. Go to 'File' > 'Info' > 'Protect Document' > 'Encrypt with Password'. Warning: If you forget the password, even Microsoft cannot recover the file for you!",
+                heading: "Locking with a Password",
+                text: "If you are writing a private document, lock it. Go to 'File' > 'Info' > 'Protect Document' > 'Encrypt with Password'. Be careful: If you forget the password, you can never open it again!",
                 imgSrc: "images/26-password-protect.jpg"
             },
             {
-                heading: "Exporting to PDF",
-                text: "Word files (.docx) can look different on different computers. To make sure your document looks exactly the same everywhere (and so nobody can easily edit it), save it as a PDF. Go to 'File' > 'Export' > 'Create PDF/XPS Document'. PDFs are the standard format for sharing official files on WhatsApp or Email.",
+                heading: "Saving as a PDF File",
+                text: "To freeze your document so it looks perfect on every phone and computer, save it as a PDF. Go to 'File', click 'Export', and choose 'Create PDF'. This is the safest way to send files on WhatsApp.",
                 imgSrc: "images/27-export-pdf.jpg"
-            },
-            {
-                heading: "Keyboard Shortcuts Mastery",
-                text: "True professionals don't use the mouse for everything. Memorize these: Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+Z (Undo a mistake), Ctrl+A (Select everything), and Ctrl+B (Bold). Using shortcuts makes your typing speed double!",
-                imgSrc: "images/28-keyboard-shortcuts.jpg"
             }
         ]
     }
 ];
+
+// ============================================================================
+// 🛑 HOW TO ADD A WHOLE NEW CHAPTER AT THE END 🛑
+// ============================================================================
+// To add Chapter 9, paste the template below right above this closing bracket ];
+// Make sure to add a comma `,` before pasting.
+//
+// ,{
+//     id: "chapter9",
+//     title: "Chapter 9: Keyboard Shortcuts",
+//     topics: [
+//         {
+//             heading: "Copy and Paste",
+//             text: "Press Ctrl+C to copy and Ctrl+V to paste.",
+//             imgSrc: "images/shortcuts.jpg"
+//         }
+//     ]
+// }
+// ============================================================================
