@@ -46,7 +46,7 @@
         .brand img.logo {
             width: 50px;
             height: 50px;
-            border-radius: 50%; /* Makes the squared image circular */
+            border-radius: 50%; 
             object-fit: cover;
             border: 2px solid var(--primary-color);
         }
@@ -112,11 +112,11 @@
             margin: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            cursor: grab; /* Indicates it can be grabbed */
+            cursor: grab; 
         }
-        .content-area:active { cursor: grabbing; } /* While dragging */
+        .content-area:active { cursor: grabbing; } 
 
-        .note-section { pointer-events: none; /* Prevents text selection while dragging */ }
+        .note-section { pointer-events: none; }
         .note-section.allow-select { pointer-events: auto; }
 
         .note-section h1 { color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 10px; }
@@ -131,8 +131,10 @@
             border-radius: 4px;
             margin: 15px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            cursor: zoom-in; /* Indicates image is clickable */
-            pointer-events: auto; /* Ensure images are clickable despite parent setting */
+            cursor: zoom-in; 
+            pointer-events: auto; 
+            position: relative;
+            z-index: 2; /* Keeps images slightly above the watermark */
         }
         .img-caption { font-size: 0.9rem; color: #666; font-style: italic; margin-bottom: 20px; }
 
@@ -140,50 +142,58 @@
         #lightbox {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 10000; /* Highest z-index to cover everything */
             left: 0; top: 0; width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
         }
         #lightbox img { max-width: 90%; max-height: 90%; border: 2px solid white; border-radius: 8px; }
-        #lightbox:target { display: flex; } /* Simplest way to show modal */
 
-        /* --- Watermark Setup (Hidden by default) --- */
-        .watermark-bg { display: none; }
+        /* --- Watermark Setup (Active for both Web and Print) --- */
+        .watermark-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            max-width: 450px;
+            opacity: 0.06; /* Very faint so it doesn't ruin reading readability */
+            pointer-events: none; /* Clicks pass right through it to the text/images below */
+            z-index: 9999; /* Put it ABOVE the white backgrounds */
+            border-radius: 50%; /* Keeps it circular */
+            object-fit: cover;
+        }
 
         /* --- Responsive Design (Mobile) --- */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
             .sidebar { width: 100%; height: 200px; border-right: none; border-bottom: 2px solid #ddd; }
             .content-area { margin: 10px; padding: 20px; }
+            .watermark-bg { width: 80vw; }
         }
 
         /* --- Print & PDF Export Styling --- */
         @media print {
-            body, .main-container { height: auto; overflow: visible; display: block; background-color: white; }
+            body, .main-container { height: auto; overflow: visible; display: block; background-color: transparent !important; }
             .sidebar, .header, .action-btns { display: none !important; }
-            .content-area { margin: 0; padding: 0; box-shadow: none; overflow: visible; cursor: auto; }
+            .content-area { margin: 0; padding: 0; box-shadow: none; overflow: visible; cursor: auto; background-color: transparent !important; border: none; }
             .note-section { pointer-events: auto; }
             
-            /* Add Watermark for Print */
+            /* Print Watermark specific settings */
             .watermark-bg {
                 display: block;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                opacity: 0.1; /* Transparent watermark */
-                z-index: -1;
-                width: 60%;
-                pointer-events: none;
-                border-radius: 50%; /* Keeps the watermark circular too */
+                opacity: 0.08; /* Slightly darker for the printer */
+                width: 60vw;
+                max-width: 600px;
+                /* position: fixed in print media forces the browser to stamp it on every single printed page */
             }
 
             /* Page breaks for neat PDF generation */
             h1 { page-break-before: always; }
             h1:first-of-type { page-break-before: auto; }
             img { page-break-inside: avoid; }
+            p, h3 { page-break-inside: avoid; }
         }
     </style>
 </head>
@@ -192,7 +202,6 @@
     <!-- Header containing Logo and Print Button -->
     <div class="header">
         <div class="brand">
-            <!-- REPLACE 'YOUR_GITHUB_LOGO_URL.png' WITH YOUR ACTUAL REPOSITORY LINK -->
             <img src="YOUR_GITHUB_LOGO_URL.png" alt="Excellent Institute Logo" class="logo" id="mainLogo">
             <h2>Excellent Institute</h2>
         </div>
@@ -201,7 +210,7 @@
         </div>
     </div>
 
-    <!-- Hidden Watermark for Printing -->
+    <!-- Active Watermark Overlay -->
     <img src="YOUR_GITHUB_LOGO_URL.png" alt="Watermark" class="watermark-bg" id="watermarkLogo">
 
     <div class="main-container">
@@ -249,7 +258,6 @@
 
             const data = wordNotesData[index];
 
-            // Added 'allow-select' class wrapper so text can be copied once loaded
             let htmlContent = `<div class="note-section allow-select">`;
             htmlContent += `<h1>${data.title}</h1>`;
             htmlContent += `<p><em>Level: ${data.level}</em></p>`;
@@ -259,7 +267,6 @@
                 htmlContent += `<p>${sec.text}</p>`;
                 
                 if(sec.imgSrc) {
-                    // Added onclick event to trigger the lightbox
                     htmlContent += `<img src="${sec.imgSrc}" alt="${sec.heading}" onclick="openLightbox(this.src)">`;
                     htmlContent += `<div class="img-caption">Figure: ${sec.heading}</div>`;
                 }
@@ -285,7 +292,6 @@
             isDown = true;
             startY = e.pageY - contentDisplay.offsetTop;
             scrollTop = contentDisplay.scrollTop;
-            // Prevent text selection while actively dragging
             contentDisplay.querySelector('.note-section').classList.remove('allow-select');
         });
 
@@ -307,7 +313,7 @@
             if (!isDown) return;
             e.preventDefault();
             const y = e.pageY - contentDisplay.offsetTop;
-            const walk = (y - startY) * 2; // Scroll speed multiplier
+            const walk = (y - startY) * 2; 
             contentDisplay.scrollTop = scrollTop - walk;
         });
 
