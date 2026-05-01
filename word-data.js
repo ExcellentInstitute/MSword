@@ -7,6 +7,11 @@ const wordBookData = [
         title: "Chapter 1: The Absolute Basics",
         topics: [
             {
+                heading: "Finding and Opening MS Word",
+                text: "Before we start typing, we need to open the program. Look for a dark blue icon with a white letter 'W' on your computer screen or in the Start menu. This is the Microsoft Word logo. Double-click this icon to start!",
+                imgSrc: "images/0-word-logo.jpg"
+            },
+            {
                 heading: "What is MS Word?",
                 text: "Microsoft Word is a digital notebook used for typing. You can use it to write letters, school essays, resumes, and project reports. When you open the program, click on 'Blank Document' to get a clean, fresh page.",
                 imgSrc: "images/1-start-screen.jpg"
@@ -21,14 +26,6 @@ const wordBookData = [
                 text: "Computers can crash or lose power. To make sure you don't lose your hard work, you must 'Save' it. Click on 'File' at the top left, then 'Save As'. Choose a folder on your computer and give your file a simple name. Pro Tip: Press 'Ctrl + S' on your keyboard to save quickly!",
                 imgSrc: "images/3-save-as.jpg"
             }
-            // 🛑 HOW TO ADD A MISSING TOPIC INSIDE THIS CHAPTER 🛑
-            // If you want to add a new topic to Chapter 1, add a comma after the 
-            // curly brace above, and paste your new block here, like this:
-            // ,{
-            //     heading: "Opening an Old Document",
-            //     text: "To open a file you saved yesterday, go to File > Open.",
-            //     imgSrc: "images/open-file.jpg"
-            // }
         ]
     },
     {
