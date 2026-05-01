@@ -3,67 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excellent Institute - MS Word Masterclass</title>
+    <title>Excellent Institute - Premium MS Word Masterclass</title>
+    <!-- Modern Font Integration -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary-color: #2b579a; 
-            --bg-color: #f3f2f1;
-            --text-color: #333;
+            /* Modern Color Palette */
+            --primary: #1e40af; /* Deep Royal Blue */
+            --primary-light: #eff6ff;
+            --accent: #3b82f6;
+            --surface: #ffffff;
+            --background: #f8fafc; /* Soft Slate */
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --radius: 12px;
         }
         
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--background);
+            color: var(--text-main);
             height: 100vh;
             overflow: hidden;
+            letter-spacing: -0.01em;
         }
 
-        /* --- Top Header bar --- */
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* --- Glassmorphism Header --- */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
+            padding: 12px 24px;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             z-index: 10;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
         }
 
         .brand {
             display: flex;
             align-items: center;
             gap: 15px;
+            cursor: pointer;
         }
 
-        /* Circular Logo Styling */
         .brand img.logo {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%; 
             object-fit: cover;
-            border: 2px solid var(--primary-color);
+            border: 2px solid var(--accent);
+            box-shadow: var(--shadow-sm);
         }
 
-        .brand h2 { margin: 0; color: var(--primary-color); font-size: 1.2rem; }
+        .brand h2 { 
+            margin: 0; 
+            color: var(--primary); 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+        }
 
         .action-btns button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            background-color: var(--surface);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .action-btns button:hover { background-color: #1a365d; }
+        .action-btns button:hover { 
+            background-color: var(--background);
+            border-color: var(--text-muted);
+            transform: translateY(-1px);
+        }
 
         /* --- Main Layout --- */
         .main-container {
@@ -72,160 +108,283 @@
             overflow: hidden;
         }
 
-        /* --- Sidebar Navigation --- */
+        /* --- Modern Sidebar Navigation --- */
         .sidebar {
             width: 280px;
-            background-color: #ffffff;
-            border-right: 1px solid #ddd;
-            padding: 20px 0;
+            background-color: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
             overflow-y: auto;
             flex-shrink: 0;
-            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
         
+        .nav-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            padding-left: 12px;
+            letter-spacing: 0.05em;
+        }
+
         .nav-btn {
-            display: block;
+            display: flex;
+            align-items: center;
             width: 100%;
-            padding: 12px 20px;
+            padding: 12px 16px;
             border: none;
             background: none;
             text-align: left;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
             cursor: pointer;
-            border-left: 4px solid transparent;
-            border-bottom: 1px solid #f0f0f0;
+            border-radius: var(--radius);
+            transition: all 0.2s ease;
         }
-        .nav-btn:hover { background-color: #f0f4f8; }
+        .nav-btn:hover { 
+            background-color: var(--background); 
+            color: var(--text-main);
+        }
         .nav-btn.active {
-            background-color: #e6f0fa;
-            border-left-color: var(--primary-color);
-            font-weight: bold;
-            color: var(--primary-color);
+            background-color: var(--primary-light);
+            color: var(--primary);
         }
 
-        /* --- Content Area (Drag to Scroll) --- */
+        /* --- Content Area --- */
         .content-area {
             flex: 1;
-            padding: 40px;
+            padding: 40px 60px;
             overflow-y: auto;
-            background-color: #ffffff;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background-color: var(--background);
             cursor: grab; 
+            scroll-behavior: smooth;
         }
         .content-area:active { cursor: grabbing; } 
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 40px 50px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .note-section { pointer-events: none; }
         .note-section.allow-select { pointer-events: auto; }
 
-        .note-section h1 { color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .note-section h3 { color: #444; margin-top: 30px; }
-        .note-section p, .note-section li { line-height: 1.6; font-size: 1.05rem; }
+        /* Typography inside Notes */
+        .note-section h1 { 
+            color: var(--text-main); 
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .level-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border: 1px solid #dbeafe;
+        }
+        .note-section h3 { 
+            color: var(--primary); 
+            font-size: 1.4rem;
+            margin-top: 40px; 
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .note-section p, .note-section li { 
+            line-height: 1.7; 
+            font-size: 1.1rem; 
+            color: #334155;
+        }
 
         /* Image Styling */
         .note-section img {
             max-width: 100%;
             height: auto;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin: 15px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 25px 0 10px 0;
+            box-shadow: var(--shadow-sm);
             cursor: zoom-in; 
             pointer-events: auto; 
             position: relative;
-            z-index: 2; /* Keeps images slightly above the watermark */
+            z-index: 2; 
+            transition: transform 0.2s;
         }
-        .img-caption { font-size: 0.9rem; color: #666; font-style: italic; margin-bottom: 20px; }
+        .note-section img:hover {
+            transform: scale(1.01);
+            box-shadow: var(--shadow-md);
+        }
+        .img-caption { 
+            font-size: 0.9rem; 
+            color: var(--text-muted); 
+            text-align: center;
+            margin-bottom: 30px; 
+        }
+
+        /* --- Dashboard Grid (Home View) --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .hero h1 { font-size: 2.5rem; color: var(--text-main); margin-bottom: 10px; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            pointer-events: auto;
+        }
+        .module-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: var(--primary-light);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+        .module-card h3 { margin: 0 0 10px 0; color: var(--text-main); font-size: 1.2rem; }
+        .module-card span { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
 
         /* --- Lightbox Modal --- */
         #lightbox {
             display: none;
             position: fixed;
-            z-index: 10000; /* Highest z-index to cover everything */
+            z-index: 10000; 
             left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
         }
-        #lightbox img { max-width: 90%; max-height: 90%; border: 2px solid white; border-radius: 8px; }
+        #lightbox img { 
+            max-width: 90%; 
+            max-height: 90%; 
+            border-radius: 8px; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
 
-        /* --- Watermark Setup (Active for both Web and Print) --- */
+        /* --- Watermark Setup --- */
         .watermark-bg {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50vw;
-            max-width: 450px;
-            opacity: 0.06; /* Very faint so it doesn't ruin reading readability */
-            pointer-events: none; /* Clicks pass right through it to the text/images below */
-            z-index: 9999; /* Put it ABOVE the white backgrounds */
-            border-radius: 50%; /* Keeps it circular */
+            width: 45vw;
+            max-width: 400px;
+            opacity: 0.04; 
+            pointer-events: none; 
+            z-index: 9999; 
+            border-radius: 50%; 
             object-fit: cover;
         }
 
         /* --- Responsive Design (Mobile) --- */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
-            .sidebar { width: 100%; height: 200px; border-right: none; border-bottom: 2px solid #ddd; }
-            .content-area { margin: 10px; padding: 20px; }
-            .watermark-bg { width: 80vw; }
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; overflow-x: auto; padding: 12px; gap: 10px;}
+            .nav-label { display: none; }
+            .nav-btn { white-space: nowrap; padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); }
+            .content-area { padding: 20px 15px; }
+            .content-wrapper { padding: 25px 20px; }
+            .watermark-bg { width: 70vw; }
         }
 
         /* --- Print & PDF Export Styling --- */
         @media print {
             body, .main-container { height: auto; overflow: visible; display: block; background-color: transparent !important; }
-            .sidebar, .header, .action-btns { display: none !important; }
-            .content-area { margin: 0; padding: 0; box-shadow: none; overflow: visible; cursor: auto; background-color: transparent !important; border: none; }
+            .sidebar, .header, .action-btns, .dashboard-grid { display: none !important; }
+            .content-area { padding: 0; cursor: auto; background-color: transparent !important; }
+            .content-wrapper { margin: 0; padding: 0; box-shadow: none; border: none; max-width: 100%; }
             .note-section { pointer-events: auto; }
             
-            /* Print Watermark specific settings */
             .watermark-bg {
                 display: block;
-                opacity: 0.08; /* Slightly darker for the printer */
+                opacity: 0.08; 
                 width: 60vw;
                 max-width: 600px;
-                /* position: fixed in print media forces the browser to stamp it on every single printed page */
             }
 
-            /* Page breaks for neat PDF generation */
-            h1 { page-break-before: always; }
+            h1 { page-break-before: always; color: #000; }
             h1:first-of-type { page-break-before: auto; }
-            img { page-break-inside: avoid; }
+            h3 { color: #000; border-bottom: 1px solid #ccc; }
+            img { page-break-inside: avoid; border: none; }
             p, h3 { page-break-inside: avoid; }
+            .level-badge { border: 1px solid #000; color: #000; background: transparent; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header containing Logo and Print Button -->
+    <!-- Premium Header -->
     <div class="header">
-        <div class="brand">
+        <div class="brand" onclick="loadDashboard()">
             <img src="YOUR_GITHUB_LOGO_URL.png" alt="Excellent Institute Logo" class="logo" id="mainLogo">
             <h2>Excellent Institute</h2>
         </div>
         <div class="action-btns">
-            <button onclick="window.print()">🖨️ Print / Save as PDF</button>
+            <button onclick="window.print()">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Print / PDF
+            </button>
         </div>
     </div>
 
-    <!-- Active Watermark Overlay -->
+    <!-- Active Watermark -->
     <img src="YOUR_GITHUB_LOGO_URL.png" alt="Watermark" class="watermark-bg" id="watermarkLogo">
 
     <div class="main-container">
+        <!-- Modern Sidebar -->
         <div class="sidebar">
-            <div id="nav-container">
-                <!-- Navigation generated here -->
+            <div class="nav-label">Course Syllabus</div>
+            <button class="nav-btn" onclick="loadDashboard()" id="home-btn">🏠 Dashboard</button>
+            <div id="nav-container" style="display: flex; flex-direction: column; gap: 6px;">
+                <!-- Note navigation generated here -->
             </div>
         </div>
 
         <div class="content-area" id="content-display">
-            <!-- Notes pushed here -->
-            <div class="note-section allow-select">
-                <h1>Welcome to the MS Word Course</h1>
-                <p>Select a topic from the sidebar to begin.</p>
-            </div>
+            <!-- Content pushes here -->
         </div>
     </div>
 
@@ -234,33 +393,72 @@
         <img id="lightbox-img" src="" alt="Enlarged view">
     </div>
 
-    <!-- Link to the data file -->
+    <!-- Data Script -->
     <script src="word-data.js"></script>
     
     <script>
         const navContainer = document.getElementById('nav-container');
         const contentDisplay = document.getElementById('content-display');
 
-        // --- Data Loading Logic ---
-        function buildNavigation() {
+        // --- Initialize App ---
+        function initApp() {
+            // Build the sidebar buttons
             wordNotesData.forEach((batch, index) => {
                 const btn = document.createElement('button');
-                btn.className = 'nav-btn';
-                btn.innerText = batch.title;
+                btn.className = 'nav-btn note-nav-btn';
+                btn.innerHTML = `📄 ${batch.title.split(':')[0]}`; // Shorten title for sidebar
                 btn.onclick = () => loadContent(index, btn);
                 navContainer.appendChild(btn);
             });
+            
+            // Load the dashboard by default
+            loadDashboard();
         }
 
+        // --- Load Dashboard (Home View) ---
+        function loadDashboard() {
+            // Manage Active States
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('home-btn').classList.add('active');
+
+            // Build Dashboard HTML
+            let html = `
+            <div class="content-wrapper allow-select">
+                <div class="hero">
+                    <h1>MS Word Masterclass</h1>
+                    <p>Select a module below to start learning.</p>
+                </div>
+                <div class="dashboard-grid">`;
+            
+            // Generate Cards based on Javascript data
+            const icons = ['📘', '📙', '📗', '📕', '📓']; // Add more if you have more batches
+            wordNotesData.forEach((batch, index) => {
+                let icon = icons[index % icons.length];
+                html += `
+                    <div class="module-card" onclick="document.querySelectorAll('.note-nav-btn')[${index}].click()">
+                        <div class="card-icon">${icon}</div>
+                        <h3>${batch.title}</h3>
+                        <span>Level: ${batch.level}</span>
+                    </div>`;
+            });
+
+            html += `</div></div>`;
+            contentDisplay.innerHTML = html;
+            contentDisplay.scrollTop = 0;
+        }
+
+        // --- Load Note Content ---
         function loadContent(index, clickedBtn) {
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             if(clickedBtn) clickedBtn.classList.add('active');
 
             const data = wordNotesData[index];
 
-            let htmlContent = `<div class="note-section allow-select">`;
-            htmlContent += `<h1>${data.title}</h1>`;
-            htmlContent += `<p><em>Level: ${data.level}</em></p>`;
+            let htmlContent = `
+            <div class="content-wrapper">
+                <div class="note-section allow-select">
+                    <h1>${data.title.split(': ')[1] || data.title}</h1>
+                    <div class="level-badge">${data.level}</div>`;
             
             data.sections.forEach(sec => {
                 htmlContent += `<h3>${sec.heading}</h3>`;
@@ -271,7 +469,7 @@
                     htmlContent += `<div class="img-caption">Figure: ${sec.heading}</div>`;
                 }
             });
-            htmlContent += `</div>`;
+            htmlContent += `</div></div>`;
             
             contentDisplay.innerHTML = htmlContent;
             contentDisplay.scrollTop = 0;
@@ -289,24 +487,27 @@
         let scrollTop;
 
         contentDisplay.addEventListener('mousedown', (e) => {
+            // Don't drag if clicking on a card or image
+            if(e.target.closest('.module-card') || e.target.tagName === 'IMG') return;
+            
             isDown = true;
             startY = e.pageY - contentDisplay.offsetTop;
             scrollTop = contentDisplay.scrollTop;
-            contentDisplay.querySelector('.note-section').classList.remove('allow-select');
+            
+            let noteSec = contentDisplay.querySelector('.note-section');
+            if(noteSec) noteSec.classList.remove('allow-select');
         });
 
         contentDisplay.addEventListener('mouseleave', () => {
             isDown = false;
-            if(contentDisplay.querySelector('.note-section')) {
-                contentDisplay.querySelector('.note-section').classList.add('allow-select');
-            }
+            let noteSec = contentDisplay.querySelector('.note-section');
+            if(noteSec) noteSec.classList.add('allow-select');
         });
 
         contentDisplay.addEventListener('mouseup', () => {
             isDown = false;
-            if(contentDisplay.querySelector('.note-section')) {
-                contentDisplay.querySelector('.note-section').classList.add('allow-select');
-            }
+            let noteSec = contentDisplay.querySelector('.note-section');
+            if(noteSec) noteSec.classList.add('allow-select');
         });
 
         contentDisplay.addEventListener('mousemove', (e) => {
@@ -317,7 +518,8 @@
             contentDisplay.scrollTop = scrollTop - walk;
         });
 
-        window.onload = buildNavigation;
+        // Run Init
+        window.onload = initApp;
     </script>
 </body>
 </html>
