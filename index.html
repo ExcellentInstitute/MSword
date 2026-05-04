@@ -61,7 +61,21 @@
             display: flex;
             align-items: center;
             gap: 15px;
+        }
+
+        /* Sidebar Toggle Button */
+        #sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
             cursor: pointer;
+            color: var(--text-main);
+            padding: 0;
+            margin-right: 5px;
+            transition: color 0.2s ease;
+        }
+        #sidebar-toggle:hover {
+            color: var(--primary);
         }
 
         /* Circular Logo */
@@ -72,9 +86,12 @@
             object-fit: cover;
             border: 2px solid var(--accent);
             box-shadow: var(--shadow-sm);
+            cursor: pointer;
         }
 
-        .brand h2 { margin: 0; color: var(--primary); font-size: 1.3rem; font-weight: 700; }
+        .brand h2 { 
+            margin: 0; color: var(--primary); font-size: 1.3rem; font-weight: 700; cursor: pointer; 
+        }
 
         /* Print Button */
         .action-btns button {
@@ -111,11 +128,23 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            transition: width 0.3s ease, padding 0.3s ease, opacity 0.2s ease;
+        }
+
+        /* Collapsed state for the Sidebar */
+        .sidebar.collapsed {
+            width: 0;
+            padding-left: 0;
+            padding-right: 0;
+            opacity: 0;
+            border-right: none;
+            overflow: hidden;
         }
         
         .nav-label {
             font-size: 0.75rem; text-transform: uppercase; font-weight: 700;
             color: var(--text-muted); margin-bottom: 10px; padding-left: 12px;
+            white-space: nowrap;
         }
 
         .nav-btn {
@@ -123,6 +152,7 @@
             border: none; background: none; text-align: left; font-size: 0.95rem;
             font-weight: 600; color: var(--text-muted); cursor: pointer;
             border-radius: var(--radius); transition: all 0.2s ease;
+            white-space: nowrap;
         }
         .nav-btn:hover { background-color: var(--background); color: var(--text-main); }
         .nav-btn.active { background-color: var(--primary-light); color: var(--primary); }
@@ -202,7 +232,11 @@
         /* --- Responsive Design (Mobile) --- */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; overflow-x: auto; padding: 12px; gap: 10px;}
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; overflow-x: auto; padding: 12px; gap: 10px; transition: height 0.3s ease, padding 0.3s ease;}
+            
+            /* Mobile Collapsed State */
+            .sidebar.collapsed { width: 100%; height: 0; padding-top: 0; padding-bottom: 0; border: none; opacity: 0; }
+            
             .nav-label { display: none; }
             .nav-btn { white-space: nowrap; padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); }
             .content-area { padding: 20px 15px; }
@@ -234,10 +268,13 @@
 
     <!-- Header -->
     <div class="header">
-        <div class="brand" onclick="loadDashboard()">
+        <div class="brand">
+            <!-- Sidebar Toggle Button -->
+            <button id="sidebar-toggle" title="Toggle Table of Contents">☰</button>
+            
             <!-- REPLACE THIS URL WITH YOUR GITHUB LOGO LINK -->
-            <img src="YOUR_GITHUB_LOGO_URL.png" alt="Excellent Institute Logo" class="logo" id="mainLogo">
-            <h2>Excellent Institute</h2>
+            <img src="YOUR_GITHUB_LOGO_URL.png" alt="Excellent Institute Logo" class="logo" id="mainLogo" onclick="loadDashboard()">
+            <h2 onclick="loadDashboard()">Excellent Institute</h2>
         </div>
         <div class="action-btns">
             <button onclick="window.print()">🖨️ Print / PDF</button>
@@ -252,7 +289,7 @@
     <div class="main-container">
         
         <!-- Sidebar -->
-        <div class="sidebar">
+        <div class="sidebar" id="main-sidebar">
             <div class="nav-label">Table of Contents</div>
             <button class="nav-btn active" onclick="loadDashboard()" id="home-btn">🏠 Book Cover</button>
             <div id="nav-container" style="display: flex; flex-direction: column; gap: 6px;">
@@ -278,6 +315,13 @@
     <script>
         const navContainer = document.getElementById('nav-container');
         const contentDisplay = document.getElementById('content-display');
+        const sidebar = document.getElementById('main-sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+
+        // Toggle Sidebar Logic
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
 
         // 1. Initialize Application
         function initApp() {
@@ -287,7 +331,13 @@
                 btn.className = 'nav-btn note-nav-btn';
                 // Shortens the sidebar title to just "Chapter 1" etc.
                 btn.innerHTML = `📘 ${chapter.title.split(':')[0]}`; 
-                btn.onclick = () => loadContent(index, btn);
+                btn.onclick = () => {
+                    loadContent(index, btn);
+                    // Automatically collapse sidebar on mobile after clicking a link
+                    if(window.innerWidth <= 768) {
+                        sidebar.classList.add('collapsed');
+                    }
+                };
                 navContainer.appendChild(btn);
             });
             loadDashboard(); // Start on home screen
