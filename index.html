@@ -64,19 +64,19 @@
         }
 
         /* Sidebar Toggle Button */
-        #sidebar-toggle {
+        .toggle-btn {
             background: none;
             border: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-            color: var(--text-main);
-            padding: 0;
-            margin-right: 5px;
-            transition: color 0.2s ease;
-        }
-        #sidebar-toggle:hover {
             color: var(--primary);
+            cursor: pointer;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: background 0.2s ease;
         }
+        .toggle-btn:hover { background-color: var(--primary-light); }
 
         /* Circular Logo */
         .brand img.logo {
@@ -89,9 +89,7 @@
             cursor: pointer;
         }
 
-        .brand h2 { 
-            margin: 0; color: var(--primary); font-size: 1.3rem; font-weight: 700; cursor: pointer; 
-        }
+        .brand h2 { margin: 0; color: var(--primary); font-size: 1.3rem; font-weight: 700; cursor: pointer; }
 
         /* Print Button */
         .action-btns button {
@@ -118,27 +116,28 @@
         /* --- Main Layout & Sidebar --- */
         .main-container { display: flex; flex: 1; overflow: hidden; }
 
+        /* Sidebar with Smooth Collapse Transition */
         .sidebar {
             width: 280px;
             background-color: var(--surface);
             border-right: 1px solid var(--border);
             padding: 24px 16px;
             overflow-y: auto;
+            overflow-x: hidden;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            transition: width 0.3s ease, padding 0.3s ease, opacity 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
         }
-
-        /* Collapsed state for the Sidebar */
+        
+        /* The Collapsed State for Sidebar */
         .sidebar.collapsed {
             width: 0;
-            padding-left: 0;
-            padding-right: 0;
-            opacity: 0;
+            padding: 24px 0;
             border-right: none;
-            overflow: hidden;
+            opacity: 0;
         }
         
         .nav-label {
@@ -166,10 +165,12 @@
         .content-area:active { cursor: grabbing; } 
 
         .content-wrapper {
-            max-width: 900px; margin: 0 auto; background: var(--surface);
+            max-width: 1200px; /* Increased to allow it to spread out when sidebar is hidden */
+            margin: 0 auto; background: var(--surface);
             padding: 40px 50px; border-radius: var(--radius);
             box-shadow: var(--shadow-md); animation: fadeIn 0.4s ease forwards;
             position: relative; z-index: 2; 
+            transition: max-width 0.3s ease;
         }
 
         @keyframes fadeIn {
@@ -200,7 +201,7 @@
         .hero h1 { font-size: 2.5rem; color: var(--text-main); margin-bottom: 10px; }
         .hero p { color: var(--text-muted); font-size: 1.1rem; }
         
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; pointer-events: auto; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; pointer-events: auto; }
         .module-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
             padding: 24px; cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-sm);
@@ -232,11 +233,8 @@
         /* --- Responsive Design (Mobile) --- */
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; overflow-x: auto; padding: 12px; gap: 10px; transition: height 0.3s ease, padding 0.3s ease;}
-            
-            /* Mobile Collapsed State */
-            .sidebar.collapsed { width: 100%; height: 0; padding-top: 0; padding-bottom: 0; border: none; opacity: 0; }
-            
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; overflow-x: auto; padding: 12px; gap: 10px;}
+            .sidebar.collapsed { height: 0; padding: 0; border: none; opacity: 0; } /* Mobile collapse */
             .nav-label { display: none; }
             .nav-btn { white-space: nowrap; padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); }
             .content-area { padding: 20px 15px; }
@@ -270,8 +268,11 @@
     <div class="header">
         <div class="brand">
             <!-- Sidebar Toggle Button -->
-            <button id="sidebar-toggle" title="Toggle Table of Contents">☰</button>
-            
+            <button id="sidebar-toggle" class="toggle-btn" onclick="toggleSidebar()" title="Hide/Show Menu">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
             <!-- REPLACE THIS URL WITH YOUR GITHUB LOGO LINK -->
             <img src="YOUR_GITHUB_LOGO_URL.png" alt="Excellent Institute Logo" class="logo" id="mainLogo" onclick="loadDashboard()">
             <h2 onclick="loadDashboard()">Excellent Institute</h2>
@@ -316,12 +317,6 @@
         const navContainer = document.getElementById('nav-container');
         const contentDisplay = document.getElementById('content-display');
         const sidebar = document.getElementById('main-sidebar');
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-
-        // Toggle Sidebar Logic
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
-        });
 
         // 1. Initialize Application
         function initApp() {
@@ -331,19 +326,18 @@
                 btn.className = 'nav-btn note-nav-btn';
                 // Shortens the sidebar title to just "Chapter 1" etc.
                 btn.innerHTML = `📘 ${chapter.title.split(':')[0]}`; 
-                btn.onclick = () => {
-                    loadContent(index, btn);
-                    // Automatically collapse sidebar on mobile after clicking a link
-                    if(window.innerWidth <= 768) {
-                        sidebar.classList.add('collapsed');
-                    }
-                };
+                btn.onclick = () => loadContent(index, btn);
                 navContainer.appendChild(btn);
             });
             loadDashboard(); // Start on home screen
         }
 
-        // 2. Load Dashboard (Home Grid)
+        // 2. Sidebar Toggle Logic
+        function toggleSidebar() {
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // 3. Load Dashboard (Home Grid)
         function loadDashboard() {
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('home-btn').classList.add('active');
@@ -371,7 +365,7 @@
             contentDisplay.scrollTop = 0;
         }
 
-        // 3. Load Specific Chapter Content
+        // 4. Load Specific Chapter Content
         function loadContent(index, clickedBtn) {
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             if(clickedBtn) clickedBtn.classList.add('active');
@@ -398,15 +392,20 @@
             
             contentDisplay.innerHTML = htmlContent;
             contentDisplay.scrollTop = 0;
+            
+            // Optional: Automatically hide sidebar on mobile when a chapter is clicked
+            if(window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+            }
         }
 
-        // 4. Lightbox (Image Zoom) Logic
+        // 5. Lightbox (Image Zoom) Logic
         function openLightbox(src) {
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
         }
 
-        // 5. Drag-to-Scroll Logic
+        // 6. Drag-to-Scroll Logic
         let isDown = false;
         let startY;
         let scrollTop;
