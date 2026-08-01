@@ -186,8 +186,8 @@
 
         /* Clickable Images */
         .note-section img {
-            max-width: 100%; height: auto; border: 1px solid var(--border);
-            border-radius: 8px; margin: 25px 0 10px 0; box-shadow: var(--shadow-sm);
+            max-width: 600px; width: 100%; height: auto; border: 1px solid var(--border);
+            border-radius: 8px; margin: 25px auto 30px auto; display: block; box-shadow: var(--shadow-sm);
             cursor: zoom-in; pointer-events: auto; transition: transform 0.2s;
         }
         .note-section img:hover { transform: scale(1.01); box-shadow: var(--shadow-md); }
@@ -317,8 +317,9 @@
         const contentDisplay = document.getElementById('content-display');
         const sidebar = document.getElementById('main-sidebar');
         
-        // Global Lock Variable
-        let isAdvancedUnlocked = false;
+        // Global Lock Variables
+        let isAdvancedUnlocked = false; // For existing PGDCA lock
+        let isDcaUnlocked = false;      // For new DCA lock
 
         // 1. Initialize Application
         function initApp() {
@@ -332,8 +333,12 @@
                 const btn = document.createElement('button');
                 btn.className = 'nav-btn note-nav-btn';
                 
-                // Show Lock icon for Chapter 10 and above
-                let displayIcon = (index >= 9 && !isAdvancedUnlocked) ? '🔒' : '📘';
+                let displayIcon = '📘';
+                // Preserve PGDCA Lock (Chapters 10 to 15)
+                if (index >= 9 && index < 15 && !isAdvancedUnlocked) displayIcon = '🔒';
+                // Implement DCA Lock (Chapter 16)
+                if (index === 15 && !isDcaUnlocked) displayIcon = '🔒';
+                
                 btn.innerHTML = `${displayIcon} ${chapter.title.split(':')[0]}`; 
                 
                 btn.onclick = () => loadContent(index, btn);
@@ -388,9 +393,16 @@
             if (typeof wordBookData !== 'undefined') {
                 wordBookData.forEach((chapter, index) => {
                     // Logic to visually lock the cards
-                    let isLocked = (index >= 9 && !isAdvancedUnlocked);
+                    let isLocked = (index >= 9 && index < 15 && !isAdvancedUnlocked) || (index === 15 && !isDcaUnlocked);
                     let icon = isLocked ? '🔒' : '📖';
-                    let lockedText = isLocked ? '<span style="color:#ef4444; font-size:0.9rem;"> (Locked)</span>' : '';
+                    
+                    let lockedText = '';
+                    if (index >= 9 && index < 15 && !isAdvancedUnlocked) {
+                        lockedText = '<span style="color:#ef4444; font-size:0.9rem;"> (Locked)</span>';
+                    }
+                    if (index === 15 && !isDcaUnlocked) {
+                        lockedText = '<span style="color:#8b5cf6; font-size:0.9rem;"> (DCA Locked)</span>';
+                    }
                     
                     html += `
                         <div class="module-card" onclick="document.querySelectorAll('.note-nav-btn')[${index}].click()">
@@ -411,8 +423,8 @@
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             if(clickedBtn) clickedBtn.classList.add('active');
 
-            // Lock screen for Chapter 10 (index 9) onwards
-            if (index >= 9 && !isAdvancedUnlocked) {
+            // --- Existing PGDCA Lock (Chapters 10 to 15) ---
+            if (index >= 9 && index < 15 && !isAdvancedUnlocked) {
                 let lockHtml = `
                 <div class="content-wrapper allow-select" style="text-align: center; padding: 80px 20px;">
                     <div style="font-size: 5rem; margin-bottom: 10px;">🔒</div>
@@ -431,9 +443,32 @@
                 
                 contentDisplay.innerHTML = lockHtml;
                 contentDisplay.scrollTop = 0;
-                
                 if(window.innerWidth <= 768) sidebar.classList.add('collapsed');
-                return; // Stops here so the content doesn't load
+                return; 
+            }
+
+            // --- New DCA Lock (Chapter 16) ---
+            if (index === 15 && !isDcaUnlocked) {
+                let lockHtml = `
+                <div class="content-wrapper allow-select" style="text-align: center; padding: 80px 20px;">
+                    <div style="font-size: 5rem; margin-bottom: 10px;">🔒</div>
+                    <h2 style="color: #8b5cf6; font-size: 2rem;">DCA Module Locked</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 25px;">Please enter the DCA password to access Resumes, Official Letters, and Practice Assignments.</p>
+                    
+                    <input type="password" id="dcaPass" placeholder="Password" style="padding: 12px; font-size: 1.2rem; border: 2px dashed #8b5cf6; border-radius: 8px; width: 100%; max-width: 250px; text-align: center; outline: none;">
+                    <br><br>
+                    
+                    <button onclick="checkDcaPassword(${index})" style="background-color: #8b5cf6; color: white; border: none; padding: 12px 40px; font-size: 1.1rem; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: var(--shadow-md);">
+                        Unlock 🔓
+                    </button>
+                    
+                    <p id="wrong-dca-msg" style="color: #ef4444; font-weight: bold; margin-top: 15px; display: none;">❌ Incorrect Password!</p>
+                </div>`;
+                
+                contentDisplay.innerHTML = lockHtml;
+                contentDisplay.scrollTop = 0;
+                if(window.innerWidth <= 768) sidebar.classList.add('collapsed');
+                return; 
             }
 
             const chapter = wordBookData[index];
@@ -464,15 +499,15 @@
             }
         }
 
-        // 6. Password Verification Function
+        // 6a. Password Verification for Existing PGDCA Content
         function checkPassword(index) {
             const input = document.getElementById('unlockPass').value;
             if (input === "PGDCA") {
                 isAdvancedUnlocked = true;
                 
-                // Instantly turn all 🔒 into 📘 in the sidebar
+                // Instantly turn 🔒 into 📘 for chapters 10 to 15
                 document.querySelectorAll('.note-nav-btn').forEach((btn, i) => {
-                    if (i >= 9) {
+                    if (i >= 9 && i < 15) {
                         btn.innerHTML = btn.innerHTML.replace('🔒', '📘');
                     }
                 });
@@ -481,6 +516,26 @@
                 loadContent(index, btn); // Reload the chapter
             } else {
                 document.getElementById('wrong-pass-msg').style.display = 'block';
+            }
+        }
+
+        // 6b. Password Verification for New DCA Content
+        function checkDcaPassword(index) {
+            const input = document.getElementById('dcaPass').value;
+            if (input === "DCA") {
+                isDcaUnlocked = true;
+                
+                // Instantly turn 🔒 into 📘 for chapter 16
+                document.querySelectorAll('.note-nav-btn').forEach((btn, i) => {
+                    if (i === 15) {
+                        btn.innerHTML = btn.innerHTML.replace('🔒', '📘');
+                    }
+                });
+                
+                const btn = document.querySelectorAll('.note-nav-btn')[index];
+                loadContent(index, btn); // Reload the chapter
+            } else {
+                document.getElementById('wrong-dca-msg').style.display = 'block';
             }
         }
 
@@ -510,7 +565,7 @@
         let scrollTop;
 
         contentDisplay.addEventListener('mousedown', (e) => {
-            if(e.target.closest('.module-card') || e.target.tagName === 'IMG') return;
+            if(e.target.closest('.module-card') || e.target.tagName === 'IMG' || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
             isDown = true;
             startY = e.pageY - contentDisplay.offsetTop;
             scrollTop = contentDisplay.scrollTop;
