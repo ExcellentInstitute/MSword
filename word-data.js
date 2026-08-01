@@ -330,8 +330,8 @@ const wordBookData = [
                 imgSrc: "images/56-recover-unsaved.jpg"
             }
         ]
-    }
-    ,{
+    },
+    {
         id: "chapter15",
         title: "Chapter 15: Essential Finishing Touches",
         topics: [
@@ -354,6 +354,32 @@ const wordBookData = [
                 heading: "How to Print Correctly",
                 text: "When you are ready to put your work on real paper, go to 'File' and click 'Print' (or press Ctrl + P). The screen will show you exactly how the paper will look. You can select your printer, type how many copies you want, and click the big Print button.",
                 imgSrc: "images/60-print-preview.jpg"
+            }
+        ]
+    },
+    {
+        id: "chapter16",
+        title: "Chapter 16: DCA Exclusive (Resumes & Official Letters)",
+        topics: [
+            {
+                heading: "Designing a Professional Resume",
+                text: "A Resume (or CV) is your professional ID card for getting a job. In Word, always use clear headings (like Education, Experience), bullet points for easy reading, and a professional font like Arial or Times New Roman. Keep it neat and exactly one or two pages long.",
+                imgSrc: "images/61-resume-format.jpg"
+            },
+            {
+                heading: "Gram Panchayat Letter Format",
+                text: "When writing an official letter to the Sarpanch or BDO, use the formal block format. Start with 'To,' followed by the official's title and address on the left. Then write a clear 'Subject:' line. Use respectful words like 'Respected Sir/Madam,' state your village problem clearly, and end with 'Yours faithfully' and your signature.",
+                imgSrc: "images/62-panchayat-letter.jpg"
+            },
+            {
+                heading: "Save as PDF & Pro Shortcut Keys",
+                text: "Always save your final Resume or Official Letter as a PDF (File > Export > Create PDF) so the design never breaks on another computer. DCA Pro Shortcuts to remember: Ctrl+J (Justify text for neat edges), Ctrl+L (Left align for 'To' addresses), and Ctrl+E (Center for main titles).",
+                imgSrc: "images/63-pdf-shortcuts.jpg"
+            },
+            {
+                heading: "DCA Practice Assignments",
+                text: "Your practical tasks: 1. Type a formal letter to the Gram Panchayat asking for street light repairs. 2. Design your own 1-page personal Resume using bullet points and bold headings. 3. Create a class routine table using the Insert Table tool. Save all three as PDFs!",
+                imgSrc: "images/64-assignments.jpg"
             }
         ]
     }
