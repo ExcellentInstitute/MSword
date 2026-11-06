@@ -501,7 +501,7 @@
 
         // 6a. Password Verification for Existing PGDCA Content
         function checkPassword(index) {
-            const input = document.getElementById('unlockPass').value;
+            const input = document.getElementById('unlockPass').value.trim().toUpperCase();
             if (input === "PGDCA") {
                 isAdvancedUnlocked = true;
                 
@@ -521,7 +521,7 @@
 
         // 6b. Password Verification for New DCA Content
         function checkDcaPassword(index) {
-            const input = document.getElementById('dcaPass').value;
+            const input = document.getElementById('dcaPass').value.trim().toUpperCase();
             if (input === "DCA") {
                 isDcaUnlocked = true;
                 
