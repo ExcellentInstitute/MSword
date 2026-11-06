@@ -322,7 +322,14 @@
         let isDcaUnlocked = false;      // For new DCA lock
 
         // 1. Initialize Application
+        // 1. Initialize Application
         function initApp() {
+            // Auto-unlock when mobile app appends #admin to the URL
+            if (window.location.hash === '#admin') {
+                isAdvancedUnlocked = true;
+                isDcaUnlocked = true;
+            }
+
             if (typeof wordBookData === 'undefined') {
                 contentDisplay.innerHTML = `<h2 style="color:red; text-align:center; padding:50px;">Awaiting Data File...</h2>`;
                 return;
